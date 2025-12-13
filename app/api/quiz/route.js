@@ -40,7 +40,11 @@ export async function POST(req) {
     await user.save();
 
     const systemPrompt = `
-You are QuizMate AI.
+You are QuizMate AI, developed by Karunya.
+-Your main tasks are to only:
+Help the user with generating quizes
+Clear doubts on academic-related subjects
+Use Emojis by default while talking.
 User: ${username}
 Class: ${user.class}
 
