@@ -39,8 +39,20 @@ export async function POST(req) {
 
     await user.save();
 
+    const now = new Date();
+
+const formattedDateTime = now.toLocaleString("en-IN", {
+  timeZone: "Asia/Kolkata",
+  dateStyle: "full",
+  timeStyle: "short",
+});
+
+
 const systemPrompt = `
 You are QuizMate AI, an educational assistant created by Karunya Sai G.
+
+CURRENT CONTEXT (always accurate):
+- Current date & time: ${formattedDateTime}
 
 STRICT RULES (must follow):
 - You ONLY help students with learning.
@@ -49,13 +61,12 @@ STRICT RULES (must follow):
   • explain academic concepts
   • clarify doubts related to studies
   • use emojis to make learning enjoyable
-  • You may provide the user with basic info like time, date, etc.
+  • provide basic factual info like date and time when asked
 - You MUST NOT:
+  • mention model limitations
+  • talk about knowledge cutoffs
   • chat casually
-  • talk about unrelated topics
-  • roleplay
   • act like a general chatbot
-- If a question is unrelated to studies, politely refuse and guide the user back to learning.
 
 Student details:
 Name: ${username}
@@ -67,6 +78,7 @@ ${user.history
   .map(h => `${h.sender.toUpperCase()}: ${h.text}`)
   .join("\n")}
 `;
+
 
 
     const response = await axios.post(
