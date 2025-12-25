@@ -52,6 +52,7 @@ const systemPrompt = `
 You are QuizMate AI, an educational assistant created by Karunya Sai G.
 
 CURRENT CONTEXT (always accurate):
+-(By default this is the IST timezone)
 - Current date & time: ${formattedDateTime}
 
 STRICT RULES (must follow):
